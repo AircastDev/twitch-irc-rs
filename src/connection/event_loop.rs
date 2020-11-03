@@ -128,7 +128,7 @@ impl<T: Transport, L: LoginCredentials> ConnectionLoopWorker<T, L> {
             // release the rate limit permit after the transport is connected and after
             // the specified time has elapsed.
             tokio::spawn(async move {
-                tokio::time::delay_for(config.new_connection_every).await;
+                tokio::time::sleep(config.new_connection_every).await;
                 drop(rate_limit_permit);
                 log::trace!("Successfully released permit after waiting specified duration.");
             });
